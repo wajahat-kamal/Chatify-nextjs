@@ -2,9 +2,11 @@
 import { useAppContext } from "@/context/AppContext";
 import { Search, Plus, Trash2, Sun, User, LogOut, X } from "lucide-react";
 import React, { useState } from "react";
+import LogoutPopup from "./LogoutPopup";
 
 function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const [search, setSearch] = useState("");
+  const [logoutPopup, setLogoutPopup] = useState(false)
 
   const {user} = useAppContext()
 
@@ -76,26 +78,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* Bottom Section */}
       <div className="absolute bottom-5 left-0 right-0 px-5">
-        {/* Dark Mode */}
-        {/* <div
-          className="flex items-center justify-between p-4 rounded-lg border 
-            border-gray-300/50 dark:border-white/20 
-            bg-gray-50 dark:bg-transparent shadow-sm"
-        >
-          <div className="flex items-center gap-2">
-            <Sun size={18} className="text-gray-600 dark:text-gray-300" />
-            <p className="text-sm font-medium">Dark Mode</p>
-          </div>
-
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input type="checkbox" className="sr-only peer" />
-            <div className="w-10 h-5 bg-gray-300 peer-checked:bg-purple-500 rounded-full transition-colors"></div>
-            <div
-              className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full border shadow-sm 
-                peer-checked:translate-x-5 transition-transform"
-            ></div>
-          </label>
-        </div> */}
+  
 
         {/* User Card */}
         <div
@@ -115,11 +98,16 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           </div>
 
           <LogOut
+            onClick={() => setLogoutPopup(true)}
             size={18}
             className="hidden group-hover:block text-gray-600 dark:text-gray-300 hover:text-red-500 transition"
           />
+
+          <LogoutPopup isOpen={logoutPopup} onClose={() => setLogoutPopup(false)}/>
+        
         </div>
       </div>
+
 
       {/* Close Button (Mobile) */}
       <button
