@@ -9,7 +9,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { axios, setToken, navigate } = useAppContext();
+  const { axios, setToken, router } = useAppContext();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ export default function Signup() {
         setToken(data.token);
         localStorage.setItem("token", data.token);
         toast.success(data.message);
-        navigate("/");
+        router.push("/");
       } else {
         toast.error(data.message);
       }
@@ -102,7 +102,7 @@ export default function Signup() {
               Already have an account?{" "}
               <button
                 type="button"
-                onClick={() => setState("login")}
+                onClick={() => router.push('/login')}
                 className="text-purple-600 font-medium hover:underline"
               >
                 Login

@@ -1,12 +1,12 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { createContext, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
-  const navigate = useNavigate();
-  axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL;
+
+  const router = useRouter()
 
   const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
@@ -16,8 +16,7 @@ const AppContextProvider = ({ children }) => {
   const [loadingUser, setLoadingUser] = useState(true);
 
   const value = {
-    navigate,
-    axios,
+    router,
     user,
     setUser,
     chats,
@@ -29,9 +28,9 @@ const AppContextProvider = ({ children }) => {
     loadingUser,
     token,
     setToken,
-    fetchUser,
-    fetchUserChats,
-    createNewChat,
+    // fetchUser,
+    // fetchUserChats,
+    // createNewChat,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

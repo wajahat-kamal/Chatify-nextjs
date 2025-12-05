@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { axios, setToken, navigate } = useAppContext();
+  const { axios, setToken, router } = useAppContext();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export default function Login() {
         setToken(data.token);
         localStorage.setItem("token", data.token);
         toast.success(data.message);
-        navigate("/");
+        router.push("/");
       } else {
         toast.error(data.message);
       }
@@ -32,7 +32,7 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-gray-100 dark:bg-gray-950 px-4">
       <form
-        // onSubmit={onSubmitHandler}
+        onSubmit={onSubmitHandler}
         className="md:w-96 w-full max-w-sm flex flex-col items-center justify-center 
                    bg-white dark:bg-gray-900 rounded-2xl shadow-xl px-7 py-10 
                    transition-all duration-300 hover:shadow-2xl"
@@ -84,13 +84,13 @@ export default function Login() {
 
         <p className="text-gray-500 dark:text-gray-400 text-sm mt-6">
           <>
-            Already have an account?{" "}
+            Don't have an account?{" "}
             <button
               type="button"
-              onClick={() => setState("login")}
+              onClick={() => router.push('/signup')}
               className="text-purple-600 font-medium hover:underline"
             >
-              Login
+              Signup
             </button>
           </>
         </p>
