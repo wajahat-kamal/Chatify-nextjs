@@ -103,9 +103,9 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
             className="hidden group-hover:block text-gray-600 dark:text-gray-300 hover:text-red-500 transition"
           />
 
-          <LogoutPopup isOpen={logoutPopup} onClose={() => setLogoutPopup(false)}/>
         
         </div>
+          <LogoutPopup isOpen={logoutPopup} onClose={() => setLogoutPopup(false)}/>
       </div>
 
 
