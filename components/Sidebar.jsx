@@ -1,6 +1,5 @@
 "use client";
 import { Search, Plus, Trash2, Sun, User, LogOut, X } from "lucide-react";
-import logo from "@/assets/logo.svg";
 import React, { useState } from "react";
 
 function Sidebar({ isMenuOpen, setIsMenuOpen }) {
@@ -20,7 +19,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       <div className="flex items-center gap-3 group">
         <div className="relative">
           <img
-            src={logo}
+            src='/logo.svg'
             alt="Chatify Logo"
             className="w-10 h-10 rounded-2xl shadow-lg border border-purple-400/40 
               dark:border-purple-500/40 transition-transform duration-300 
@@ -71,11 +70,6 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         />
       </div>
 
-      {chats.length > 0 && (
-        <p className="mt-4 mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-[#B1A6C0]">
-          Recent Chats
-        </p>
-      )}
 
       {/* Bottom Section */}
       <div className="absolute bottom-5 left-0 right-0 px-5">

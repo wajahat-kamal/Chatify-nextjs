@@ -1,7 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/context/AppContext";
-import logo from "@/assets/logo.svg";
 // import Message from "./Message";
 import { SendHorizonal, StopCircle } from "lucide-react";
 import toast from "react-hot-toast";
@@ -75,7 +74,7 @@ function ChatBox() {
             <div className="flex items-center gap-3 group">
               <div className="relative">
                 <img
-                  src={logo}
+                  src='/logo.svg'
                   alt="Chatify Logo"
                   className="w-14 h-14 rounded-2xl shadow-lg border border-purple-400/40 
                              dark:border-purple-500/40 transition-transform duration-300 
