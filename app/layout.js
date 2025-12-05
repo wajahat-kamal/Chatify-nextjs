@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AppContextProvider from "@/context/AppContext";
+import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +15,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: "CHATIFY - Wajahat Kamal",
-  description: "Chatify is a chat application that allows you to chat with your friends and family.",
+  description:
+    "Chatify is a chat application that allows you to chat with your friends and family.",
 };
 
 export default function RootLayout({ children }) {
@@ -25,6 +27,7 @@ export default function RootLayout({ children }) {
       >
         <AppContextProvider>
           {children}
+          <Toaster position="top-right" />
         </AppContextProvider>
       </body>
     </html>

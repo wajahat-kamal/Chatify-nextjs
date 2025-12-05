@@ -2,13 +2,14 @@
 import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function Login() {
   
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { axios, setToken, router } = useAppContext();
+  const { setToken, router } = useAppContext();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
