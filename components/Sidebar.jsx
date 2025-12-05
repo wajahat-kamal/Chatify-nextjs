@@ -1,9 +1,12 @@
 "use client";
+import { useAppContext } from "@/context/AppContext";
 import { Search, Plus, Trash2, Sun, User, LogOut, X } from "lucide-react";
 import React, { useState } from "react";
 
 function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const [search, setSearch] = useState("");
+
+  const {user} = useAppContext()
 
   return (
     <div
@@ -106,7 +109,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
             </div>
             <div className="flex flex-col">
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate">
-                Wajahat Kamal
+               {user ? user.name : 'Unknown User'}
               </p>
             </div>
           </div>
