@@ -77,7 +77,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       {/* Bottom Section */}
       <div className="absolute bottom-5 left-0 right-0 px-5">
         {/* Dark Mode */}
-        <div
+        {/* <div
           className="flex items-center justify-between p-4 rounded-lg border 
             border-gray-300/50 dark:border-white/20 
             bg-gray-50 dark:bg-transparent shadow-sm"
@@ -95,7 +95,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                 peer-checked:translate-x-5 transition-transform"
             ></div>
           </label>
-        </div>
+        </div> */}
 
         {/* User Card */}
         <div

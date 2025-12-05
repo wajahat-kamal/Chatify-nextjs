@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Sidebar from "@/components/Sidebar";
 import Chatbox from "@/components/Chatbox";
 import { useAppContext } from "@/context/AppContext";
+import Loading from "@/components/Loading";
 
 export default function Home() {
   const {token, setToken, router} = useAppContext();
@@ -17,7 +18,7 @@ export default function Home() {
     }
   }, [router]);
 
-  if (!token) return <p>Loading...</p>; // wait until token is loaded
+  if (!token) return <Loading/>; // wait until token is loaded
 
   return (
     <div className="h-screen w-screen flex flex-row justify-center items-center overflow-hidden">
