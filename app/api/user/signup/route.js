@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import User from "@/models/userModel";
 import connectDB from "@/config/db";
+import jwt from "jsonwebtoken";
 
 export async function POST(req) {
   await connectDB();
@@ -28,15 +29,20 @@ export async function POST(req) {
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(password, salt);
 
-    await User.create({
+    const user = await User.create({
       name,
       email,
       password: hashPassword,
     });
 
+    const token = JsonWebTokenError.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d",
+    });
+
     return NextResponse.json({
       success: true,
       message: "User created successfully",
+      token,
     });
   } catch (error) {
     console.error("❌ Error:", error.message);
