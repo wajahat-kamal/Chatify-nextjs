@@ -10,7 +10,7 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { router } = useAppContext();
+  const { setToken, router } = useAppContext();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -19,8 +19,8 @@ export default function Signup() {
     try {
       const { data } = await axios.post(url, { name, email, password });
       if (data.success) {
-        // setToken(data.token);
-        // localStorage.setItem("token", data.token);
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
         toast.success(data.message);
         router.push("/");
       } else {
