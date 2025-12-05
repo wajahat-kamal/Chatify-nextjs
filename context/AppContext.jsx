@@ -8,11 +8,11 @@ const AppContextProvider = ({ children }) => {
 
   const router = useRouter()
 
-  const [token, setToken] = useState(localStorage.getItem("token") || null);
+  // const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+  // const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
   const [loadingUser, setLoadingUser] = useState(true);
 
   const value = {
@@ -23,11 +23,11 @@ const AppContextProvider = ({ children }) => {
     setChats,
     selectedChat,
     setSelectedChat,
-    theme,
-    setTheme,
     loadingUser,
-    token,
-    setToken,
+    // theme,
+    // setTheme,
+    // token,
+    // setToken,
     // fetchUser,
     // fetchUserChats,
     // createNewChat,

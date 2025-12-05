@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 export default function Signup() {
   
@@ -9,17 +10,17 @@ export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { axios, setToken, router } = useAppContext();
+  const { router } = useAppContext();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
-    const url =  "/api/user/register";
+    const url = "/api/user/signup";
 
     try {
       const { data } = await axios.post(url, { name, email, password });
       if (data.success) {
-        setToken(data.token);
-        localStorage.setItem("token", data.token);
+        // setToken(data.token);
+        // localStorage.setItem("token", data.token);
         toast.success(data.message);
         router.push("/");
       } else {
@@ -33,7 +34,7 @@ export default function Signup() {
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-gray-100 dark:bg-gray-950 px-4">
       <form
-        // onSubmit={onSubmitHandler}
+        onSubmit={onSubmitHandler}
         className="md:w-96 w-full max-w-sm flex flex-col items-center justify-center 
                    bg-white dark:bg-gray-900 rounded-2xl shadow-xl px-7 py-10 
                    transition-all duration-300 hover:shadow-2xl"
