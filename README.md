@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💬 Chatify – AI-Powered Chat Application
 
-## Getting Started
+Chatify is a modern full stack **AI-powered chat application** built using the **Next.js** .  
+It features a sleek UI built with **Tailwind CSS**, **real-time chat management**, and **AI text generation** powered by custom APIs.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+✅ **User Authentication**
+- Secure login and registration with JWT-based authentication.
+- Passwords encrypted using bcrypt.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+✅ **AI Chat Assistant**
+- Send messages and get intelligent replies from an AI backend.
+- Supports text-based chat.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+✅ **Chat Management**
+- Create, search, and delete chats easily.
+- Saves all chat history per user.
 
-## Learn More
+✅ **Responsive UI**
+- Built using **React + Tailwind CSS** for modern, fluid design.
+- Dark and light themes supported.
 
-To learn more about Next.js, take a look at the following resources:
+✅ **Beautiful Animations & Toasts**
+- Lucide icons, motion effects, and smooth transitions.
+- Real-time feedback using `react-hot-toast`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧠 Tech Stack
 
-## Deploy on Vercel
+| Category | Technology |
+|-----------|-------------|
+| Frontend | Next.js, React, Tailwind CSS |
+| Backend | Node.js, Next.js|
+| Database | MongoDB |
+| AI API | OpenAI API (text-based generation) |
+| Auth | JWT, bcrypt |
+| Deployment | Vercel |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
