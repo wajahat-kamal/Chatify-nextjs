@@ -3,6 +3,8 @@ import { useAppContext } from "@/context/AppContext";
 import { Search, Plus, Trash2, Sun, User, LogOut, X } from "lucide-react";
 import React, { useState } from "react";
 import LogoutPopup from "./LogoutPopup";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const [search, setSearch] = useState("");
@@ -19,6 +21,32 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
     token,
     setChats,
   } = useAppContext();
+
+  const deleteChat = async (chatId) => {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this chat?"
+    );
+    if (!confirmDelete) return;
+
+    try {
+      const { data } = await axios.post(
+        "/api/chat/deleteChat",
+        { chatId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      if (data.success) {
+        setChats((prev) => prev.filter((chat) => chat._id !== chatId));
+        await fetchUserChats();
+        toast.success(data.message || "Chat deleted");
+      } else {
+        toast.error(data.message || "Failed to delete chat");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
+
 
   return (
     <div

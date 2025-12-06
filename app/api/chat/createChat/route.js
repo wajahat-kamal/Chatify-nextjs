@@ -1,45 +1,33 @@
 import Chat from "@/models/chatModel";
 import { NextResponse } from "next/server";
+import { getUserFromToken } from "@/utils/auth";
 
-export async function POST(request) {
+export async function POST(req) {
   try {
-
-    if (!request.user) {
+    const user = await getUserFromToken(req);
+    if (!user) {
       return NextResponse.json(
-        {
-          success: false,
-          message: "Unauthorized",
-        },
+        { success: false, message: "Unauthorized" },
         { status: 401 }
       );
     }
 
-    const userId = request.user._id;
-
     const chatData = {
-      userId,
-      userName: request.user.name,
-      chatName: "New Chat",
+      userId: user._id,
+      userName: user.name,
+      name: "New Chat",
       messages: [],
     };
 
     const newChat = await Chat.create(chatData);
 
     return NextResponse.json(
-      {
-        success: true,
-        message: "Chat created successfully",
-        chat: newChat,
-      },
+      { success: true, message: "Chat created successfully", chat: newChat },
       { status: 200 }
     );
-
   } catch (error) {
     return NextResponse.json(
-      {
-        success: false,
-        message: error.message,
-      },
+      { success: false, message: error.message },
       { status: 500 }
     );
   }
