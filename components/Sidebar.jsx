@@ -121,8 +121,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       )}
 
       <div
-        className="space-y-2 overflow-y-auto h-[52vh] pr-1 
-        scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent"
+        className="space-y-2 overflow-y-auto h-[52vh] pr-1 custom-scroll"
       >
         {chats
           .filter((chat) =>

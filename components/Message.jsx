@@ -27,7 +27,7 @@ function Message({ message }) {
             </span>
           </div>
 
-          <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1 sm:p-1.5">
+          <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1 sm:p-1.5 mr-3">
             <User className="text-gray-700 dark:text-gray-100 w-5 h-5 sm:w-6 sm:h-6" />
           </div>
         </div>
@@ -36,7 +36,7 @@ function Message({ message }) {
         <div className="flex items-start justify-start my-4 gap-2">
           <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1 sm:p-1.5">
             <img
-              src={'/chatbot.png'}
+              src={"/chatbot.png"}
               alt="Chatbot Avatar"
               className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
             />

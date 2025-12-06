@@ -72,7 +72,7 @@ const onSubmit = async (e) => {
   return (
     <div className="w-200 flex-1 flex flex-col justify-between xl:mx-15 md:p-10 max-md:pt-14 p-5 2xl:pr-40 h-screen">
       {/* Messages */}
-      <div className="flex-1 mb-5 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400/60 scrollbar-track-transparent">
+      <div className="flex-1 mb-5 overflow-y-auto custom-scroll">
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-3 text-primary">
             <div className="flex items-center gap-3 group">
