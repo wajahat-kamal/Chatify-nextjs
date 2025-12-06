@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 function ChatBox() {
-  const { selectedChat, user, token } = useAppContext();
+  const { selectedChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);

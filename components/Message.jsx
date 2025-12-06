@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { User } from "lucide-react";
-import chatbot from "../assets/chatbot.png";
 import moment from "moment";
 import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
@@ -37,7 +36,7 @@ function Message({ message }) {
         <div className="flex items-start justify-start my-4 gap-2">
           <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1 sm:p-1.5">
             <img
-              src={chatbot}
+              src={'/chatbot.png'}
               alt="Chatbot Avatar"
               className="w-5 h-5 sm:w-6 sm:h-6 rounded-full object-cover"
             />
