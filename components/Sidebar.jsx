@@ -75,6 +75,68 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         />
       </div>
 
+      {/* {chats.length > 0 && (
+        <p className="mt-4 mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-[#B1A6C0]">
+          Recent Chats
+        </p>
+      )} */}
+
+      {/* <div
+        className="space-y-2 overflow-y-auto h-[42vh] pr-1 
+        scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent"
+      >
+        {chats
+          .filter((chat) =>
+            chat.messages.length > 0
+              ? chat.messages[0].content
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
+              : chat.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((chat) => (
+            <div
+              key={chat._id}
+              onClick={() => {
+                setSelectedChat(chat);
+                navigate("/");
+                setIsMenuOpen(false);
+              }}
+              className="flex items-center justify-between py-2.5 px-3 rounded-lg 
+              border border-gray-200 dark:border-[#80609F]/20 
+              bg-gray-50 dark:bg-[#1C1522] 
+              hover:bg-gray-100 dark:hover:bg-[#2A2130] 
+              transition-all duration-200 shadow-sm group cursor-pointer"
+            >
+              <div className="flex flex-col max-w-[70%]">
+                <p className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
+                  {chat.messages.length > 0
+                    ? chat.messages[0].content.slice(0, 32)
+                    : chat.name}
+                </p>
+                <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
+                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()}
+                </span>
+              </div>
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toast.promise(deleteChat(chat._id), {
+                    loading: "Deleting...",
+                    success: "Deleted!",
+                    error: "Failed to delete",
+                  });
+                }}
+                className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition"
+              >
+                <Trash2 size={16} />
+              </button>
+            </div>
+          ))}
+      </div> */}
+
+
+
 
       {/* Bottom Section */}
       <div className="absolute bottom-5 left-0 right-0 px-5">

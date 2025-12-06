@@ -14,6 +14,27 @@ const AppContextProvider = ({ children }) => {
   const [selectedChat, setSelectedChat] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
 
+  const fetchUser = async () => {
+    try {
+      const { data } = await axios.get("/api/user/me", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (data.success) {
+        setUser(data.user);
+      } else {
+        toast.error(data.message || "Failed to fetch user");
+      }
+    } catch (error) {
+      console.log(error);
+      setUser(null);
+    } finally {
+      setLoadingUser(false);
+    }
+  };
+
+
+
   // Load token on client side
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -28,26 +49,13 @@ const AppContextProvider = ({ children }) => {
 
   // Fetch user when token exists
   useEffect(() => {
-    if (!token) return;
-  
-    const fetchUser = async () => {
-      try {
-        const res = await axios.get("/api/user/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-  
-        setUser(res.data.user || null); // ✅ use res.data
-      } catch (error) {
-        console.log(error);
-        setUser(null);
-      } finally {
-        setLoadingUser(false);
-      }
-    };
-  
-    fetchUser();
+    if (token) {
+      fetchUser();
+    } else {
+      setUser(null);
+      setLoadingUser(false);
+    }
   }, [token]);
-  
 
   const value = {
     router,
@@ -60,6 +68,7 @@ const AppContextProvider = ({ children }) => {
     loadingUser,
     token,
     setToken,
+    fetchUser,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
