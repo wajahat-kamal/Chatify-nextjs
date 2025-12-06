@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { User } from "lucide-react";
-import chatbot from "../assets/chatbot.avif";
+import chatbot from "../assets/chatbot.png";
 import moment from "moment";
 import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";

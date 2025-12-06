@@ -21,42 +21,41 @@ function ChatBox() {
     }
   }, [messages]);
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (!user) return toast.error("Please login to send a message");
-      if (!prompt.trim()) return toast.error("Prompt cannot be empty");
+const onSubmit = async (e) => {
+  e.preventDefault();
+  try {
+    const storedToken = localStorage.getItem("token"); // token get from localStorage
+    if (!storedToken) return toast.error("Please login first");
 
-      setLoading(true);
-      const promptCopy = prompt;
-      setPrompt("");
+    const promptCopy = prompt;
+    setPrompt("");
 
-      // Add user's message instantly
-      setMessages((prev) => [
-        ...prev,
-        { role: "user", content: promptCopy, timestamp: Date.now() },
-      ]);
+    setMessages(prev => [...prev, { role: "user", content: promptCopy, timestamp: Date.now() }]);
+    setLoading(true);
 
-      const { data } = await axios.post(
-        "/api/message/text",
-        { chatId: selectedChat?._id, prompt: promptCopy },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
-      );
-
-      if (data.success) {
-        setMessages((prev) => [...prev, data.reply]);
-      } else {
-        toast.error(data.message);
-        setPrompt(promptCopy);
+    const { data } = await axios.post(
+      "/api/message/text",
+      { chatId: selectedChat?._id, prompt: promptCopy },
+      {
+        headers: {
+          Authorization: `Bearer ${storedToken}`, // Must send token here
+        },
       }
-    } catch (error) {
-      toast.error(error?.response?.data?.message || error.message);
-    } finally {
-      setLoading(false);
+    );
+
+    if (data.success) {
+      setMessages(prev => [...prev, data.reply]);
+    } else {
+      toast.error(data.message);
+      setPrompt(promptCopy);
     }
-  };
+  } catch (error) {
+    toast.error(error?.response?.data?.message || error.message);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (selectedChat) {

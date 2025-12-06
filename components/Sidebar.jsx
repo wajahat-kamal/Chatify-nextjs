@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 
 function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const [search, setSearch] = useState("");
-  const [logoutPopup, setLogoutPopup] = useState(false)
+  const [logoutPopup, setLogoutPopup] = useState(false);
 
   const {
     router,
@@ -47,7 +47,6 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
     }
   };
 
-
   return (
     <div
       className={`h-screen w-72 p-5 flex flex-col 
@@ -62,7 +61,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       <div className="flex items-center gap-3 group">
         <div className="relative">
           <img
-            src='/logo.svg'
+            src="/logo.svg"
             alt="Chatify Logo"
             className="w-10 h-10 rounded-2xl shadow-lg border border-purple-400/40 
               dark:border-purple-500/40 transition-transform duration-300 
@@ -153,7 +152,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                     : chat.name}
                 </p>
                 <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
-                  {chat.updatedAt}
+                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()}
                 </span>
               </div>
 
@@ -174,18 +173,13 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           ))}
       </div>
 
-
-
-
       {/* Bottom Section */}
       <div className="absolute bottom-5 left-0 right-0 px-5">
-  
-
         {/* User Card */}
         <div
           className="flex items-center justify-between gap-3 p-4 mt-4 rounded-lg border 
             border-gray-300/50 dark:border-white/20 
-            bg-gray-50 dark:bg-transparent cursor-pointer group"
+            bg-gray-50 dark:bg-transparent cursor-pointer"
         >
           <div className="flex items-center gap-2">
             <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1.5">
@@ -193,7 +187,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
             </div>
             <div className="flex flex-col">
               <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate">
-               {user ? user.name : 'Unknown User'}
+                {user ? user.name : "Unknown User"}
               </p>
             </div>
           </div>
@@ -201,14 +195,14 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           <LogOut
             onClick={() => setLogoutPopup(true)}
             size={18}
-            className="hidden group-hover:block text-gray-600 dark:text-gray-300 hover:text-red-500 transition"
+            className=" text-gray-600 dark:text-gray-300 hover:text-red-500 transition"
           />
-
-        
         </div>
-          <LogoutPopup isOpen={logoutPopup} onClose={() => setLogoutPopup(false)}/>
+        <LogoutPopup
+          isOpen={logoutPopup}
+          onClose={() => setLogoutPopup(false)}
+        />
       </div>
-
 
       {/* Close Button (Mobile) */}
       <button

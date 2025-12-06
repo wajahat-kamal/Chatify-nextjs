@@ -13,6 +13,8 @@ export async function POST(req) {
       );
     }
 
+    console.log(req.headers.get("authorization")); // kya aa raha hai check karo
+
     const body = await req.json();
     const { chatId, prompt } = body;
 
