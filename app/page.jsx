@@ -21,6 +21,7 @@ export default function Home() {
     } else {
       setToken(storedToken); // set token to state
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
 
   if (!token) return <Loading/>; // wait until token is loaded

@@ -1,8 +1,10 @@
 import Chat from "@/models/chatModel";
 import { NextResponse } from "next/server";
 import { getUserFromToken } from "@/utils/auth";
+import connectDB from "@/config/db";
 
 export async function GET(req) {
+  await connectDB();
   try {
     const user = await getUserFromToken(req);
     if (!user) {

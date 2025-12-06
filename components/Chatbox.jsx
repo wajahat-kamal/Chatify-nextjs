@@ -27,6 +27,10 @@ const onSubmit = async (e) => {
     const storedToken = localStorage.getItem("token"); // token get from localStorage
     if (!storedToken) return toast.error("Please login first");
 
+    if (!selectedChat?._id) {
+      return toast.error("Please select a chat first");
+    }
+
     const promptCopy = prompt;
     setPrompt("");
 
@@ -60,6 +64,8 @@ const onSubmit = async (e) => {
   useEffect(() => {
     if (selectedChat) {
       setMessages(selectedChat.messages || []);
+    } else {
+      setMessages([]);
     }
   }, [selectedChat]);
 

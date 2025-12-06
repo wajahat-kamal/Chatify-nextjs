@@ -94,10 +94,14 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     if (token) {
       fetchUser();
+      fetchUserChats();
     } else {
       setUser(null);
+      setChats([]);
+      setSelectedChat(null);
       setLoadingUser(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [token]);
 
   const value = {

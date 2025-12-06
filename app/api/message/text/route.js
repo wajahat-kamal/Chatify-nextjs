@@ -29,16 +29,23 @@ export async function POST(req) {
 
   try {
     const completion = await openai.chat.completions.create({
-      model: "gemini-2.0-flash-exp",
+      model: "gemini-2.0-flash",
       messages: [{ role: "user", content: prompt }],
     });
 
-  const aiMessage = completion.choices?.[0]?.message?.content || "I'm not sure how to respond.";
+    const aiMessage = completion.choices?.[0]?.message?.content || "I'm not sure how to respond.";
 
-  const reply = { role: "assistant", content: aiMessage, timestamp: new Date().toISOString() };
+    const reply = { role: "assistant", content: aiMessage, timestamp: new Date().toISOString() };
 
-  chat.messages.push(reply);
-  await chat.save();
+    chat.messages.push(reply);
+    await chat.save();
 
-  return NextResponse.json({ success: true, reply }, { status: 200 });
+    return NextResponse.json({ success: true, reply }, { status: 200 });
+  } catch (error) {
+    console.error("OpenAI API Error:", error);
+    return NextResponse.json(
+      { success: false, message: error.message || "Failed to generate response" },
+      { status: 500 }
+    );
+  }
 }
