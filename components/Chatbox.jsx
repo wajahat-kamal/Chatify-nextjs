@@ -1,69 +1,68 @@
 'use client';
 import React, { useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/context/AppContext";
-// import Message from "./Message";
+import Message from "./Message";
 import { SendHorizonal, StopCircle } from "lucide-react";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 function ChatBox() {
-//   const { selectedChat, user, axios, token } = useAppContext();
+  const { selectedChat, user, token } = useAppContext();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");
 
-  // ✅ Ref for auto scroll
   const messagesEndRef = useRef(null);
 
-  // 🌀 Scroll to bottom when messages change
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
 
-//   const onSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       if (!user) return toast.error("Please login to send a message");
-//       if (!prompt.trim()) return toast.error("Prompt cannot be empty");
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (!user) return toast.error("Please login to send a message");
+      if (!prompt.trim()) return toast.error("Prompt cannot be empty");
 
-//       setLoading(true);
-//       const promptCopy = prompt;
-//       setPrompt("");
+      setLoading(true);
+      const promptCopy = prompt;
+      setPrompt("");
 
-//       // Add user's message instantly
-//       setMessages((prev) => [
-//         ...prev,
-//         { role: "user", content: promptCopy, timestamp: Date.now() },
-//       ]);
+      // Add user's message instantly
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: promptCopy, timestamp: Date.now() },
+      ]);
 
-//       const { data } = await axios.post(
-//         "/api/message/text",
-//         { chatId: selectedChat?._id, prompt: promptCopy },
-//         {
-//           headers: { Authorization: `Bearer ${token}` },
-//         }
-//       );
+      const { data } = await axios.post(
+        "/api/message/text",
+        { chatId: selectedChat?._id, prompt: promptCopy },
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
-//       if (data.success) {
-//         setMessages((prev) => [...prev, data.reply]);
-//       } else {
-//         toast.error(data.message);
-//         setPrompt(promptCopy);
-//       }
-//     } catch (error) {
-//       toast.error(error?.response?.data?.message || error.message);
-//     } finally {
-//       setLoading(false);
-//     }
-//   };
+      if (data.success) {
+        setMessages((prev) => [...prev, data.reply]);
+      } else {
+        toast.error(data.message);
+        setPrompt(promptCopy);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-//   useEffect(() => {
-//     if (selectedChat) {
-//       setMessages(selectedChat.messages || []);
-//     }
-//   }, [selectedChat]);
+  useEffect(() => {
+    if (selectedChat) {
+      setMessages(selectedChat.messages || []);
+    }
+  }, [selectedChat]);
 
   return (
     <div className="w-200 flex-1 flex flex-col justify-between xl:mx-15 md:p-10 max-md:pt-14 p-5 2xl:pr-40 h-screen">
@@ -101,9 +100,9 @@ function ChatBox() {
           </div>
         )}
 
-        {/* {messages.map((message, index) => (
+        {messages.map((message, index) => (
           <Message key={index} message={message} />
-        ))} */}
+        ))}
 
         {loading && (
           <div className="loader flex items-center gap-2 mt-3 ml-3">
@@ -119,7 +118,7 @@ function ChatBox() {
 
       {/* Chat input */}
       <form
-        // onSubmit={onSubmit}
+        onSubmit={onSubmit}
         className="bg-white/70 dark:bg-[#2a1f3d]/50 border border-purple-300/30 dark:border-[#80609F]/30 
                    rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto flex items-center gap-3 shadow-md 
                    backdrop-blur-sm focus-within:ring-2 focus-within:ring-purple-400 transition"
