@@ -9,7 +9,9 @@ export const getUserFromToken = async (req) => {
     const token = authHeader.split(" ")[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decoded.id).select("-password");
+    // ✔ Use correct field name
+    const user = await User.findById(decoded.userId).select("-password");
+
     return user || null;
   } catch (error) { 
     return null;

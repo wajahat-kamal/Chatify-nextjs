@@ -17,7 +17,7 @@ export default function Home() {
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
     if (!storedToken) {
-      router.push("/login");
+      router.push("/signup");
     } else {
       setToken(storedToken); // set token to state
     }
