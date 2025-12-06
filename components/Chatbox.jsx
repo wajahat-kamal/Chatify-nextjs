@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import React, { useEffect, useRef, useState } from "react";
 import { useAppContext } from "@/context/AppContext";
 import Message from "./Message";
@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 function ChatBox() {
-  const { selectedChat } = useAppContext();
+  const { selectedChat, createNewChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -21,45 +21,47 @@ function ChatBox() {
     }
   }, [messages]);
 
-const onSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const storedToken = localStorage.getItem("token"); // token get from localStorage
-    if (!storedToken) return toast.error("Please login first");
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const storedToken = localStorage.getItem("token"); // token get from localStorage
+      if (!storedToken) return toast.error("Please login first");
 
-    if (!selectedChat?._id) {
-      return toast.error("Please select a chat first");
-    }
-
-    const promptCopy = prompt;
-    setPrompt("");
-
-    setMessages(prev => [...prev, { role: "user", content: promptCopy, timestamp: Date.now() }]);
-    setLoading(true);
-
-    const { data } = await axios.post(
-      "/api/message/text",
-      { chatId: selectedChat?._id, prompt: promptCopy },
-      {
-        headers: {
-          Authorization: `Bearer ${storedToken}`, // Must send token here
-        },
+      if (!selectedChat?._id) {
+        return toast.error("Please create or select a chat first");
       }
-    );
 
-    if (data.success) {
-      setMessages(prev => [...prev, data.reply]);
-    } else {
-      toast.error(data.message);
-      setPrompt(promptCopy);
+      const promptCopy = prompt;
+      setPrompt("");
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "user", content: promptCopy, timestamp: Date.now() },
+      ]);
+      setLoading(true);
+
+      const { data } = await axios.post(
+        "/api/message/text",
+        { chatId: selectedChat?._id, prompt: promptCopy },
+        {
+          headers: {
+            Authorization: `Bearer ${storedToken}`, // Must send token here
+          },
+        }
+      );
+
+      if (data.success) {
+        setMessages((prev) => [...prev, data.reply]);
+      } else {
+        toast.error(data.message);
+        setPrompt(promptCopy);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-    toast.error(error?.response?.data?.message || error.message);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   useEffect(() => {
     if (selectedChat) {
@@ -78,7 +80,7 @@ const onSubmit = async (e) => {
             <div className="flex items-center gap-3 group">
               <div className="relative">
                 <img
-                  src='/logo.svg'
+                  src="/logo.svg"
                   alt="Chatify Logo"
                   className="w-14 h-14 rounded-2xl shadow-lg border border-purple-400/40 
                              dark:border-purple-500/40 transition-transform duration-300 
