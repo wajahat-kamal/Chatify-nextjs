@@ -1,24 +1,25 @@
-'use client';
+"use client";
 
 import React from "react";
 import { useAppContext } from "@/context/AppContext";
 import toast from "react-hot-toast";
+import { createPortal } from "react-dom";
 
 export default function LogoutPopup({ isOpen, onClose }) {
   const { setToken, setUser, router } = useAppContext();
 
   if (!isOpen) return null; // hide popup if not open
 
-const handleLogout = () => {
-    setToken(null)
-    setUser(null)
-    localStorage.removeItem('token')
-    toast.success('Logged out successfully')
-    onClose()
-    router.push('/login')
-}
+  const handleLogout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem("token");
+    toast.success("Logged out successfully");
+    onClose();
+    router.push("/login");
+  };
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div className="bg-white dark:bg-gray-900 rounded-xl p-6 w-80 shadow-lg">
         <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-4">
@@ -42,6 +43,7 @@ const handleLogout = () => {
           </button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
