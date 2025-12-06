@@ -12,7 +12,7 @@ const AppContextProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
-  const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedChat, setSelectedChat] = useState(1);
   const [loadingUser, setLoadingUser] = useState(true);
 
   const fetchUser = async () => {

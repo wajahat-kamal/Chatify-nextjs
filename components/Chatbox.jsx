@@ -7,7 +7,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 function ChatBox() {
-  const { selectedChat, createNewChat } = useAppContext();
+  const { selectedChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -28,7 +28,7 @@ function ChatBox() {
       if (!storedToken) return toast.error("Please login first");
 
       if (!selectedChat?._id) {
-        return toast.error("Please create or select a chat first");
+        return toast.error("Please create a chat first");
       }
 
       const promptCopy = prompt;
