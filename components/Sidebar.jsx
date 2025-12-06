@@ -8,7 +8,17 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const [search, setSearch] = useState("");
   const [logoutPopup, setLogoutPopup] = useState(false)
 
-  const {user} = useAppContext()
+  const {
+    router,
+    user,
+    chats,
+    setSelectedChat,
+    createNewChat,
+    fetchUserChats,
+    setToken,
+    token,
+    setChats,
+  } = useAppContext();
 
   return (
     <div
@@ -48,6 +58,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* New Chat Button */}
       <button
+        onClick={createNewChat}
         className="mt-6 flex items-center justify-center gap-2 py-3 rounded-lg 
           bg-gradient-to-r from-[#A456F7] to-[#3D61F6] 
           text-white font-medium shadow-md hover:scale-[1.02] 
@@ -75,13 +86,13 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         />
       </div>
 
-      {/* {chats.length > 0 && (
+      {chats.length > 0 && (
         <p className="mt-4 mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-[#B1A6C0]">
           Recent Chats
         </p>
-      )} */}
+      )}
 
-      {/* <div
+      <div
         className="space-y-2 overflow-y-auto h-[42vh] pr-1 
         scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent"
       >
@@ -98,7 +109,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
               key={chat._id}
               onClick={() => {
                 setSelectedChat(chat);
-                navigate("/");
+                router.push("/");
                 setIsMenuOpen(false);
               }}
               className="flex items-center justify-between py-2.5 px-3 rounded-lg 
@@ -114,7 +125,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                     : chat.name}
                 </p>
                 <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
-                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()}
+                  {chat.updatedAt}
                 </span>
               </div>
 
@@ -133,7 +144,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
               </button>
             </div>
           ))}
-      </div> */}
+      </div>
 
 
 
