@@ -47,9 +47,9 @@ function Message({ message }) {
                        border border-[#80609F]/30 rounded-lg shadow-sm
                        max-w-[85%] sm:max-w-lg md:max-w-xl lg:max-w-2xl"
           >
-            <p className="text-sm dark:text-primary reset-tw">
+            <div className="text-sm dark:text-primary reset-tw">
               <ReactMarkdown>{message.content}</ReactMarkdown>
-            </p>
+            </div>
 
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0] self-end">
               {moment(timestamp).fromNow()}
