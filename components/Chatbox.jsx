@@ -28,7 +28,7 @@ function ChatBox() {
       if (!storedToken) return toast.error("Please login first");
 
       if (!selectedChat?._id) {
-        return toast.error("Please create a chat first");
+        return toast.error("Please create a new chat first");
       }
 
       const promptCopy = prompt;
