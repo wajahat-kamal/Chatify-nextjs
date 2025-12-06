@@ -2,13 +2,14 @@
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
   const router = useRouter();
 
-  const [token, setToken] = useState(null); // FIXED
+  const [token, setToken] = useState(null);
   const [user, setUser] = useState(null);
   const [chats, setChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
@@ -33,41 +34,63 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  // const fetchUserChats = async () => {
-  //   try {
-  //     const { data } = await axios.get("/api/chat/getChats", {
-  //       headers: { Authorization: token },
-  //     });
-  //     if (data.success) {
-  //       setChats(data.chats);
-  //       if (data.chats.length === 0) {
-  //         await createNewChat();
-  //       } else {
-  //         setSelectedChat(data.chats[0]);
-  //       }
-  //     } else {
-  //       toast.error(data.message || "Failed to load chats");
-  //     }
-  //   } catch (error) {
-  //     toast.error(error.response?.data?.message || error.message);
-  //   }
-  // };
+  const fetchUserChats = async () => {
+    try {
+      const { data } = await axios.get("/api/chat/getChats", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
 
-  // Load token on client side
-  
-  
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = localStorage.getItem("token");
-      if (storedToken) {
-        setToken(storedToken);
+      if (data.success) {
+        setChats(data.chats);
+
+        if (data.chats.length === 0) {
+          await createNewChat();
+        } else {
+          setSelectedChat(data.chats[0]);
+        }
       } else {
-        setLoadingUser(false);
+        toast.error(data.message || "Failed to load chats");
       }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
+
+  const createNewChat = async () => {
+    try {
+      if (!user) return toast.error("Login to create a new chat");
+
+      router.push("/");
+
+      const { data } = await axios.post(
+        "/api/chat/createChat",
+        {},
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (data.success) {
+        await fetchUserChats();
+      } else {
+        toast.error(data.message || "Failed to create new chat");
+      }
+    } catch (error) {
+      toast.error(error.response?.data?.message || error.message);
+    }
+  };
+
+  // Load token from localStorage
+  useEffect(() => {
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    } else {
+      setLoadingUser(false);
     }
   }, []);
 
-  // Fetch user when token exists
+  // Fetch user when token changes
   useEffect(() => {
     if (token) {
       fetchUser();
@@ -89,6 +112,8 @@ const AppContextProvider = ({ children }) => {
     token,
     setToken,
     fetchUser,
+    fetchUserChats,
+    createNewChat,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
