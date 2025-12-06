@@ -33,9 +33,29 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-
+  // const fetchUserChats = async () => {
+  //   try {
+  //     const { data } = await axios.get("/api/chat/getChats", {
+  //       headers: { Authorization: token },
+  //     });
+  //     if (data.success) {
+  //       setChats(data.chats);
+  //       if (data.chats.length === 0) {
+  //         await createNewChat();
+  //       } else {
+  //         setSelectedChat(data.chats[0]);
+  //       }
+  //     } else {
+  //       toast.error(data.message || "Failed to load chats");
+  //     }
+  //   } catch (error) {
+  //     toast.error(error.response?.data?.message || error.message);
+  //   }
+  // };
 
   // Load token on client side
+  
+  
   useEffect(() => {
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
